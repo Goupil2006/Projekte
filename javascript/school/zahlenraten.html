@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zahlen Raten</title>
+    <style>
+        .title {
+            text-align: center;
+        }
+        #RatenLassen {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Zahlen Raten</h1>
+    <input type="radio" id="1" name="möglichkeiten" onclick="handleAuswahl()" checked="checked"> Selber Raten</input>
+    <input type="radio" id="2" name="möglichkeiten" onclick="handleAuswahl()"> Raten Lassen</input>
+
+    <div id="SelberRaten">
+        Rate eine zahl: <input id="Ratezahl" name="a">
+        <div id="Ausgabe1"></div>
+    </div>
+
+    <div id="RatenLassen">
+        <div id="Ausgabe2"></div>
+        <button onclick="high()">Höher</button>
+        <button onclick="low()">Tiefer</button>
+        <button onclick="correct()">Richtig</button>
+    </div>
+
+    <script>
+
+        let zahl = Math.round(Math.random() * 100);
+
+        let max = 100;
+        let min = 0;
+
+        ask(min, max);
+
+        function ask(a, b) {
+            let c = Math.round((a + b) / 2);
+            document.getElementById("Ausgabe2").innerHTML = "ist die Zahl: " + c;
+        }
+
+        function high(){
+            min = Math.round((min + max) / 2);
+            ask(min, max);
+        }
+
+        function low(){
+            max = Math.round((min + max) / 2);
+            ask(min, max);
+        }
+
+        function correct(){
+            max = 100;
+            min = 0;
+
+            ask(min, max);
+        }
+
+        document.getElementById("Ratezahl").addEventListener("input", () => {
+            let Eingabe = parseInt(document.getElementById("Ratezahl").value);
+            let Ausgabe = document.getElementById("Ausgabe1");
+            if(Eingabe == null){
+                return;
+            }else if(Eingabe == zahl) {
+                Ausgabe.innerHTML = "Geschaft";
+                zahl = Math.round(Math.random() * 100);
+            }else if(Eingabe < zahl){
+                Ausgabe.innerHTML = "die Zahl ist Größer";
+            }else if(Eingabe > zahl){
+                Ausgabe.innerHTML = "die Zahl ist Kleiner";
+            }
+        });
+        function handleAuswahl() {
+            if(document.getElementById("1").checked == true){
+                document.getElementById("SelberRaten").style.display = "block";
+                document.getElementById("RatenLassen").style.display = "none";
+            }
+            if(document.getElementById("2").checked == true){
+                document.getElementById("SelberRaten").style.display = "none";
+                document.getElementById("RatenLassen").style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>

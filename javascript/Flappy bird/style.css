@@ -1,0 +1,54 @@
+body {
+    max-width: 1900px;
+}
+
+#box {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: red;
+    right: 90%;
+    bottom: 1000px;
+}
+
+#container {
+    position: relative;
+    height: 500px;
+    width: 100%; 
+    border: 0.1em solid black;
+    overflow: hidden;
+}
+
+.object {
+    position: absolute;
+    height: 100%;
+    right: 0%;
+}
+
+.top {
+    position: absolute;
+    top: 0;
+    width: 40px;
+    background: black;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 0;
+    width: 40px;
+    background: black;
+}
+
+#score {
+    font-size: 3em;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+#highscore {
+    font-size: 3em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}

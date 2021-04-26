@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="a" id="b">Name</label>
+    <input type="test" name="a" id="a">
+    <h1 id="c"></h1>
+    <p id="d"></p>
+    <script>
+        let name = prompt("Enter name");
+        let stimmung = prompt("Enter stimmung");
+        if(stimmung == "gut"){
+            document.getElementById("d").innerHTML = "Aha, es geht dir also " + stimmung;
+        }else if(stimmung == "hack"){
+            window.location.href = "https://github.com/Goupil2006";
+
+        }
+        document.getElementById("a").value = name;
+        document.getElementById("c").innerHTML =  name;
+        document.getElementById("a").addEventListener("input", () => {
+            document.getElementById("c").innerHTML = document.getElementById("a").value;
+        });
+    </script>
+</body>
+</html>
