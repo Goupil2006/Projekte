@@ -1,0 +1,21 @@
+table {
+    position: absolute;
+    top: 50;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+
+table td {
+    position: relative;
+    border: 1px solid black;
+    width: 2em;
+    height: 2em;
+    font-size: 5em;
+}
+
+table td div {
+    position: absolute;
+    font-size: 2em;
+    top: 50%; right: 50%;
+    transform: translate(50%,-50%);
+}
