@@ -4,13 +4,111 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
     <title>Document</title>
+    <style>
+        table {
+            position: absolute;
+            top: 50;
+            left: 50%;
+            transform: translate(-50%, 50%);
+        }
+
+        table td {
+            position: relative;
+            border: 1px solid black;
+            width: 2em;
+            height: 2em;
+            font-size: 5em;
+        }
+
+        table td div {
+            position: absolute;
+            font-size: 2em;
+            top: 50%; right: 50%;
+            transform: translate(50%,-50%);
+        }
+    </style>
 </head>
 <body>
-    <form action="/game" method="post">
-        <label for="Name">Name:</label>
-        <input type="text" name="name">
-        <input type="submit">
-    </form>
+    <button id="1" onclick="handleAuswahl(1)" checked="checked"> Sei: O</button>
+    <button id="2" onclick="handleAuswahl(2)"> Sei: X</button>
+
+    <table>
+        <tr>
+            <td id="00"><div></div></td>
+            <td id="01"><div></div></td>
+            <td id="02"><div></div></td>
+        </tr>
+        <tr>
+            <td id="10"><div></div></td>
+            <td id="11"><div></div></td>
+            <td id="12"><div></div></td>
+        </tr>
+        <tr>
+            <td id="20"><div></div></td>
+            <td id="21"><div></div></td>
+            <td id="22"><div></div></td>
+        </tr>
+    </table>
+
+    <script>
+
+        let Player = "O";
+
+        for(let i = 0; i < 3; i++){
+            for(let j = 0; j < 3; j++){
+                document.getElementById(String(i) + String(j)).addEventListener("click", () => {
+                    
+                    $.ajax({
+                        url: "/move",
+                        method: "POST",
+                        data: {
+                            player: Player,
+                            x: j,
+                            y: i
+                        },
+                        success: function(data) {
+                            for(let i = 0; i < 3; i++) {
+                    for(let j = 0; j < 3; j++){
+                        document.getElementById(String(j) + String(i)).innerHTML = "<div>" + data[j][i] + "</div>";
+                    }
+                }
+                        }
+                    });
+
+                });
+            }
+        }
+        function handleAuswahl(x) {
+            if(x == 1){
+                Player = "O";
+                document.getElementById("1").style.display = "none";
+                document.getElementById("2").style.display = "none";
+            }
+            if(x == 2){
+                Player = "X";
+                document.getElementById("1").style.display = "none";
+                document.getElementById("2").style.display = "none";
+            }
+        }
+
+
+
+        setInterval(() => {
+            $.ajax({
+            url: "/game",
+            method: "POST",
+            success: function(data) {
+                for(let i = 0; i < 3; i++) {
+                    for(let j = 0; j < 3; j++){
+                        document.getElementById(String(j) + String(i)).innerHTML = "<div>" + data[j][i] + "</div>";
+                    }
+                }
+            }
+        });
+        }, 100)
+
+    </script>
 </body>
 </html>
