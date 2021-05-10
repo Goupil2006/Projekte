@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+			crossorigin="anonymous"
+		/>
+		<title>Zahlen raten</title>
+		<style>
+			body {
+				color: #ffffff;
+			}
+			nav {
+				background: #000000;
+				position: relative;
+				display: Flex;
+			}
+			.switch1 {
+				position: absolute;
+				right: 1em;
+				top: 20%;
+			}
+			nav h1 {
+				position: relative;
+				left: 0.2em;
+			}
+			#main {
+				background: #191919;
+				height: 100%;
+				position: absolute;
+				width: 100%;
+				top: 3em;
+				display: Flex;
+			}
+			#raten,
+			#geraten {
+				border: 5px solid #292929;
+				width: 40%;
+				margin: 5%;
+				background: #000000;
+				padding: 0.5em;
+				position: relative;
+			}
+
+			.eingabe {
+				position: relative;
+				width: 80%;
+				left: 2%;
+			}
+			#ausgaberaen {
+				position: relative;
+				top: 1em;
+				left: 3%;
+			}
+			#ratensubmit {
+				position: relative;
+				top: 0.5em;
+			}
+		</style>
+	</head>
+	<body>
+		<nav id="nav">
+			<h1>Zahlenrater</h1>
+			<div class="form-check form-switch switch1">
+				<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+				<label class="form-check-label" for="flexSwitchCheckDefault">Dark/light</label>
+			</div>
+		</nav>
+		<div id="main">
+			<div id="raten">
+				<h1>Rate Zahl</h1>
+				<div class="mb-3 eingabe">
+					<label for="rangeeingabe" class="form-label">Gib ein zwichen welhen zahlen du raten sollst!</label>
+					<input type="input" class="form-control" id="rangeeingabe" placeholder="100" value="100" />
+				</div>
+				<div class="mb-3 eingabe">
+					<label for="Zahleingabe" class="form-label">Rate die Zahl</label>
+					<input type="input" class="form-control" id="Zahleingabe" placeholder="50" />
+					<button id="ratensubmit" type="button" class="btn btn-primary">Raten!</button>
+				</div>
+				<h2 id="ausgaberaen">Viel Glück</h2>
+			</div>
+			<div id="geraten">
+				<h1>Computer ratet(0-100)</h1>
+				<h2 id="ratencom">Ist ihre Zahl 50?</h2>
+				<button id="Gröser" type="button" class="btn btn-primary">Größer!</button>
+				<button id="Kleiner" type="button" class="btn btn-primary">Kleiner!</button>
+				<button id="Richtig" type="button" class="btn btn-primary">Richtig!</button>
+			</div>
+		</div>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+			crossorigin="anonymous"
+		></script>
+		<script>
+			let min = 0;
+			let max = 100;
+			let Temp = 50;
+
+			document.getElementById("Gröser").addEventListener("click", () => {
+				min = Temp;
+				Temp = Math.round((min + max) / 2);
+				document.getElementById("ratencom").innerHTML = "Ist ihre Zahl " + Temp + "?";
+			});
+
+			document.getElementById("Kleiner").addEventListener("click", () => {
+				max = Temp;
+				Temp = Math.round((min + max) / 2);
+				document.getElementById("ratencom").innerHTML = "Ist ihre Zahl " + Temp + "?";
+			});
+
+			document.getElementById("Richtig").addEventListener("click", () => {
+				document.getElementById("ratencom").innerHTML = "Geschafft denke dir eine neue zahl aus. ist die Zahl 50?";
+				min = 0;
+				max = 100;
+				Temp = 50;
+			});
+
+			let zz;
+
+			const zahlgen = () => {
+				zz = Math.round(Math.random() * Number(document.getElementById("rangeeingabe").value));
+				console.log(zz);
+			};
+			zahlgen();
+			const raten = () => {
+				let gerateneZahl = Number(document.getElementById("Zahleingabe").value); // liest Zahl aus Eingabefeld aus
+
+				if (gerateneZahl < zz) {
+					document.getElementById("ausgaberaen").innerHTML = "Deine Zahl ist zu klein!";
+				} else if (gerateneZahl > zz) {
+					document.getElementById("ausgaberaen").innerHTML = "Deine Zahl ist zu groß!";
+				} else {
+					document.getElementById("ausgaberaen").innerHTML = "Gewonnen!!!";
+					zahlgen();
+				}
+			};
+
+			document.getElementById("rangeeingabe").addEventListener("input", zahlgen);
+
+			document.getElementById("ratensubmit").addEventListener("click", raten);
+
+			document.getElementById("Zahleingabe").addEventListener("change", raten);
+			document.getElementById("flexSwitchCheckDefault").addEventListener("change", () => {
+				if (document.getElementById("flexSwitchCheckDefault").checked == true) {
+					document.body.style.color = "#000000";
+					document.getElementById("nav").style.background = "#FFFFFF";
+					document.getElementById("main").style.background = "#A9A9A9";
+					document.getElementById("raten").style.background = "#FFFFFF";
+					document.getElementById("geraten").style.background = "#FFFFFF";
+				} else {
+					document.body.style.color = "#FFFFFF";
+					document.getElementById("nav").style.background = "#000000";
+					document.getElementById("main").style.background = "#191919";
+					document.getElementById("raten").style.background = "#000000";
+					document.getElementById("geraten").style.background = "#000000";
+				}
+			});
+		</script>
+	</body>
+</html>
