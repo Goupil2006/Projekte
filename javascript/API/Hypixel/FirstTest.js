@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 let file = require("../../../../../Keys/Hypixelapi.json");
 
 let key = file["key"];
-let name = "Goupil2000";
+let name = "BookRabbit";
 
 fetch(`https://api.hypixel.net/player?key=${key}&name=${name}`)
 	.then((response) => response.json())
