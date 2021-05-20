@@ -1,0 +1,28 @@
+GET http://localhost:3000/users
+
+################################
+
+GET http://localhost:3000/users/60a68cac77c354e4509f2c54
+
+#################
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "name": "test",
+    "friend": "test2"
+}
+
+################################
+
+DELETE http://localhost:3000/users/60a68cac77c354e4509f2c54
+
+#################
+
+Patch http://localhost:3000/users/60a6a8293a46d5c338b8fffc
+Content-Type: application/json
+
+{
+    "name": "Marc"
+}
